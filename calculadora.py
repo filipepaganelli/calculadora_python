@@ -1,21 +1,23 @@
 
 #Funções da operações
 class Calculadora():
+    @staticmethod
     def somar(a,b):
         return print(f" O resultado é: {round((a+b),2)}")
-
+    @staticmethod
     def subtrair(a,b):
         return print(f" O resultado é: {round((a-b),2)}")
-
+    @staticmethod
     def dividir(a,b):
         return print(f" O resultado é: {round((a/b),2)}")
-
+    @staticmethod
     def multiplicar(a,b):
         return print(f" O resultado é: {round((a*b),2)}")
-
+    @staticmethod
     def raiz(a,b):
         return print(f" O resultado é: {round(b**(1/a),2)}")
-    
+        
+    @staticmethod  
     def validar_input(mensagem, valor_minimo):
         while True:
             try:
@@ -59,16 +61,16 @@ def rodar_calculadora():
             v2 = int(input("Insira o segundo valor:"))  
 
             if opcao == 1:
-                somar(v1,v2)
+                Calculadora.somar(v1,v2)
             elif opcao ==2:
-                subtrair(v1,v2)
+                Calculadora.subtrair(v1,v2)
             elif opcao ==3:
-                multiplicar(v1,v2)
+                Calculadora.multiplicar(v1,v2)
             elif opcao ==4:
                 while v2 ==0:
                     print('Não é possível devidir por 0.')
                     v2 = int(input("Insira o segundo valor novamente: "))  
-                dividir(v1,v2)
+                Calculadora.dividir(v1,v2)
         elif opcao == 5:
                 while True:
                     v1 = int(input("Insira o coeficiente da raiz(Ex:2,3,4...):\n "))
@@ -82,7 +84,7 @@ def rodar_calculadora():
                         print("O número deve ser maior do que 0!\n ")
                         continue
                     break
-                raiz(v1,v2)
+                Calculadora.raiz(v1,v2)
         
 
     print()

@@ -6,6 +6,8 @@ import sys
 
 #Funções da operações
 class Calculadora():
+
+    #Funções de operações matemáticas
     @staticmethod
     def somar(a,b):
         return print(f" O resultado é: {round((a+b),2)}")
@@ -21,19 +23,25 @@ class Calculadora():
     @staticmethod
     def raiz(a,b):
         return print(f" O resultado é: {round(b**(1/a),2)}")
-        
+    
+    #Função de validação de input   
     @staticmethod  
-    def validar_input(mensagem, valor_minimo):
+    def validar_input(pergunta: str, valor_minimo: int):
         while True:
+            
             try:
-                numero = int(input(mensagem))
-                if numero > 0:
-                    return numero
-           
+                
+                valor = int(input(pergunta))
+                if valor < valor_minimo:
+                    print(f"Digite um valor maior que {valor_minimo}")
+                    
+                    continue
                 else:
-                    print(f"O número digitado deve ser maior do que {valor_minimo}! ")
+                    return valor
             except ValueError:
-                print("Entrada inválida! Digite um número inteiro!")
+                print('Letras ou caracteres não são aceitáveis. Digite uma opção válida!')
+                
+                     
 
 def efeito_digitacao(texto):
     """
@@ -47,7 +55,7 @@ def efeito_digitacao(texto):
 def menu():
     while True:       
         try:
-            os.system("cls")
+        
             opcao = int(input("""
             Qual operação deseja fazer?\n                 
             1-Somar
@@ -65,6 +73,7 @@ def menu():
             
             else:
                 return opcao
+            
                 
         except ValueError:
             print('Letras ou caracteres não são aceitáveis. Digite uma opção válida!')
@@ -72,43 +81,35 @@ def menu():
             continue
 
 
+
+
 def rodar_calculadora():
     while True:
         opcao = menu()
-        if opcao ==0:
+        if opcao == 0:
             efeito_digitacao("\nObrigado por usar nossa calculadora! ;)")
             return 0
-        #Pedindo os valore que serão calculados 
-        v1 = Calculadora.validar_input("Insira o primeiro valor:", 0)
-        v2 = Calculadora.validar_input("Insira o segundo valor:", 0)  
 
-        if opcao == 1:
-            Calculadora.somar(v1,v2)
-        elif opcao ==2:
-            Calculadora.subtrair(v1,v2)
-        elif opcao ==3:
-            Calculadora.multiplicar(v1,v2)
-        elif opcao ==4:
-            while v2 ==0:
-                print('Não é possível devidir por 0.')
-                v2 = int(input("Insira o segundo valor novamente: "))  
-            Calculadora.dividir(v1,v2)
+        # Para soma, subtração e multiplicação, mínimo é 0
+        if opcao in (1, 2, 3):
+            v1 = Calculadora.validar_input("Insira o primeiro valor: ", 0)
+            v2 = Calculadora.validar_input("Insira o segundo valor: ", 0)
+            if opcao == 1:
+                Calculadora.somar(v1, v2)
+            elif opcao == 2:
+                Calculadora.subtrair(v1, v2)
+            elif opcao == 3:
+                Calculadora.multiplicar(v1, v2)
+
+        elif opcao == 4:
+            v1 = Calculadora.validar_input("Insira o primeiro valor: ", 0)
+            v2 = Calculadora.validar_input("Insira o segundo valor: ", 1)
+            Calculadora.dividir(v1, v2)
+
         elif opcao == 5:
-                while True:
-                    v1 = int(input("Insira o coeficiente da raiz(Ex:2,3,4...):\n "))
-                    if v1<=0:
-                        print("O coeficiente deve ser maior do que 0!\n ")
-                        continue
-                    break
-                while True:
-                    v2 = int(input("Insira o número que deseja descobrir a raiz: \n"))
-                    if v2<=0:
-                        print("O número deve ser maior do que 0!\n ")
-                        continue
-                    break
-                Calculadora.raiz(v1,v2)
-
-        
+            v1 = Calculadora.validar_input("Insira o coeficiente da raiz: ", 1)
+            v2 = Calculadora.validar_input("Insira o número que deseja descobrir a raiz: ", 1)
+            Calculadora.raiz(v1, v2)
 
 if __name__ == "__main__":
 
